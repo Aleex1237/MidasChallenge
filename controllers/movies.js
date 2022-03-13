@@ -16,4 +16,26 @@ const getById = async (req, res, next) => {
   }
 };
 
-module.exports = { getById };
+const removeCharacters = async (req, res, next) => {
+  try {
+    await moviesService.removeCharactersFromMovieId(req.params.id);
+
+    res.status(status.RESPONSE_OK).json({
+      status: status.RESPONSE_OK,
+      msg: messages.RESPONSE_OK,
+      data: `Characters in Movie with ID:${req.params.id} removed.`,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteAllData = async (req, res, next) => {
+  try {
+    await moviesService.deleteAllData();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getById, removeCharacters, deleteAllData };
