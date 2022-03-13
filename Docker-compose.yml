@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  db:
+    restart: always
+    container_name: starwars_db
+    image: mysql:latest
+    ports: 
+      - "3306:3306"
+    environment: 
+      - MYSQL_DATABASE=starwars
+      - MYSQL_ROOT_USER=root
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - data_starwars:/var/lib/mysql
+    expose:
+      - 3306
+
+volumes: 
+  data_starwars: {}
