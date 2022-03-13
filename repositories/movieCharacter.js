@@ -1,10 +1,17 @@
 const db = require('../models');
 
 const create = async (movieId, characterId) => {
-  db.Movie_Character.create({
+  await db.Movie_Character.create({
     movie_id: movieId,
     character_id: characterId,
   });
 };
 
-module.exports = { create };
+const remove = async (movieId) => {
+  await db.Movie_Character.destroy({ where: { movie_id: movieId } });
+};
+
+const removeData = async () => {
+  await db.Movie_Character.destroy({ truncate: true });
+};
+module.exports = { create, remove, removeData };
