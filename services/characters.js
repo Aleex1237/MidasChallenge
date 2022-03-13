@@ -12,6 +12,13 @@ const bulkCreate = (movieid, characters) => {
   characters.forEach(async (character) => {
     const response = await fetch.getAny(character);
 
+    const characterInDb = await charactersRepository.getByName(response.name);
+    if (characterInDb) {
+      movieCharacterRepository.create(movieid, characterInDb.id);
+
+      return characterInDb;
+    }
+
     if (response.species[0] === undefined) {
       characterSorted = {
         name: response.name,
