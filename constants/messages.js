@@ -24,7 +24,7 @@ const INVALID_PHONE = 'The phone entered is not valid';
 
 // user messages
 const EMAIL_REPEAT = 'this email is already in use';
-const NO_MATCH_USER = 'You can only eliminate yourself';
+const NO_MATCH_USER = 'Invalid Credentials';
 
 module.exports = {
   NOT_FOUND_ERROR,
