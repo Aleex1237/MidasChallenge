@@ -15,4 +15,8 @@ const create = async (data) => {
   return movie;
 };
 
-module.exports = { create, getByName };
+const removeData = async () => {
+  await db.Movie.destroy({ truncate: true });
+};
+
+module.exports = { create, getByName, removeData };
