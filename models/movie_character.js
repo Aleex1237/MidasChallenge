@@ -1,7 +1,8 @@
-'use strict';
+/* eslint-disable camelcase */
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Movie_Character extends Model {
     /**
@@ -12,10 +13,24 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
+  }
   Movie_Character.init({
-    movie_id: DataTypes.INTEGER,
-    character_id: DataTypes.INTEGER
+    movie_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Movies',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+    },
+    character_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Characters',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+    },
   }, {
     sequelize,
     modelName: 'Movie_Character',
