@@ -1,9 +1,12 @@
 const db = require('../models');
 
-const getById = async (id) => {
-  const movie = await db.Movie.findByPk(id, {
-    include: [{ association: 'characters' }],
-  });
+const getByName = async (name) => {
+  const movie = await db.Movie.findOne(
+    {
+      where: { title: name },
+      include: [{ association: 'characters' }],
+    },
+  );
   return movie;
 };
 
@@ -12,4 +15,4 @@ const create = async (data) => {
   return movie;
 };
 
-module.exports = { getById, create };
+module.exports = { create, getByName };
