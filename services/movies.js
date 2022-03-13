@@ -1,4 +1,6 @@
 const moviesRepository = require('../repositories/movies');
+const moviesCharacterRepository = require('../repositories/movieCharacter');
+const charactersRepository = require('../repositories/characters');
 const status = require('../constants/statusCodes');
 const messages = require('../constants/messages');
 const charactersService = require('./characters');
@@ -36,4 +38,14 @@ const getById = async (id) => {
   return movieInDb.dataValues;
 };
 
-module.exports = { getById };
+const removeCharactersFromMovieId = async (id) => {
+  await moviesCharacterRepository.remove(id);
+};
+
+const deleteAllData = async () => {
+  await moviesCharacterRepository.removeData();
+  await moviesRepository.removeData();
+  await charactersRepository.removeData();
+};
+
+module.exports = { getById, removeCharactersFromMovieId, deleteAllData };
