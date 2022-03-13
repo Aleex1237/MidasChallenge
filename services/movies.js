@@ -7,7 +7,8 @@ const fetch = require('./fetch');
 let movie;
 
 const getById = async (id) => {
-  movie = await moviesRepository.getById(id);
+  const response = await fetch.getMovie(id);
+  movie = await moviesRepository.getByName(response.title);
 
   if (movie) {
     return movie.dataValues;
