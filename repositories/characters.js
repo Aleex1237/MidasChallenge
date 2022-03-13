@@ -5,4 +5,10 @@ const create = async (data) => {
   return character;
 };
 
-module.exports = { create };
+const getByName = async (name) => {
+  const character = await db.Character.findOne({ where: { name } });
+
+  return character;
+};
+
+module.exports = { create, getByName };
