@@ -8,6 +8,18 @@ const fetch = require('./fetch');
 
 let movie;
 
+const getAll = async (title) => {
+  const movies = await moviesRepository.getAll(title);
+
+  if (!movies) {
+    const error = new Error(messages.NOT_FOUND_ERROR);
+    error.status = status.NOT_FOUND_ERROR;
+    throw error;
+  }
+
+  return movies;
+};
+
 const getById = async (id) => {
   const response = await fetch.getMovie(id);
   movie = await moviesRepository.getByName(response.title);
@@ -48,4 +60,6 @@ const deleteAllData = async () => {
   await charactersRepository.removeData();
 };
 
-module.exports = { getById, removeCharactersFromMovieId, deleteAllData };
+module.exports = {
+  getAll, getById, removeCharactersFromMovieId, deleteAllData,
+};
