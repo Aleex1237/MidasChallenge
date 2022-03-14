@@ -10,10 +10,10 @@ const getAll = async (title) => {
   return movies;
 };
 
-const getByName = async (name) => {
-  const movie = await db.Movie.findOne(
+const getById = async (id) => {
+  const movie = await db.Movie.findByPk(
+    id,
     {
-      where: { title: name },
       include: [{ association: 'characters' }],
     },
   );
@@ -30,5 +30,5 @@ const removeData = async () => {
 };
 
 module.exports = {
-  getAll, create, getByName, removeData,
+  getAll, create, removeData, getById,
 };
