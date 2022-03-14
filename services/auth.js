@@ -20,7 +20,10 @@ const create = async (data) => {
     throw error;
   }
 
-  return user;
+  return {
+    id: user.dataValues.id,
+    email: user.dataValues.email,
+  };
 };
 
 const login = async (data) => {
