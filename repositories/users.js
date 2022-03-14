@@ -10,4 +10,8 @@ const getByEmail = async (data) => {
   return user;
 };
 
-module.exports = { create, getByEmail };
+const removeData = async () => {
+  await db.User.destroy({ truncate: true });
+};
+
+module.exports = { create, getByEmail, removeData };
