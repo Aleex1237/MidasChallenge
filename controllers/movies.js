@@ -2,6 +2,20 @@ const moviesService = require('../services/movies');
 const status = require('../constants/statusCodes');
 const messages = require('../constants/messages');
 
+const getAll = async (req, res, next) => {
+  try {
+    const movies = await moviesService.getAll(req.query.title);
+
+    res.status(status.RESPONSE_OK).json({
+      status: status.RESPONSE_OK,
+      msg: messages.RESPONSE_OK,
+      movies,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getById = async (req, res, next) => {
   try {
     const movie = await moviesService.getById(req.params.id);
@@ -38,4 +52,6 @@ const deleteAllData = async (req, res, next) => {
   }
 };
 
-module.exports = { getById, removeCharacters, deleteAllData };
+module.exports = {
+  getAll, getById, removeCharacters, deleteAllData,
+};
