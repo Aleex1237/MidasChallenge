@@ -18,7 +18,7 @@ const TOKEN_NOT_GENERATED = 'The token couldn\'t be generated';
 const NAME_NOT_FOUND = 'The name is required';
 const IMAGE_NOT_FOUND = 'The image is required';
 const WELCOME_TEXT_NOT_FOUND = 'The welcomeText is required';
-const EMAIL_NOT_FOUND = 'The image is required';
+const EMAIL_NOT_FOUND = 'Email Not found';
 const INVALID_EMAIL = 'The email entered is not valid';
 const INVALID_PHONE = 'The phone entered is not valid';
 

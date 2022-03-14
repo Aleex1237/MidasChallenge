@@ -4,8 +4,7 @@ const messages = require('../constants/messages');
 
 const getAll = async (req, res, next) => {
   try {
-    const movies = await moviesService.getAll(req.query.title);
-
+    const movies = await moviesService.getAll(req);
     res.status(status.RESPONSE_OK).json({
       status: status.RESPONSE_OK,
       msg: messages.RESPONSE_OK,
@@ -46,7 +45,12 @@ const removeCharacters = async (req, res, next) => {
 
 const deleteAllData = async (req, res, next) => {
   try {
-    await moviesService.deleteAllData();
+    const msg = await moviesService.deleteAllData();
+
+    res.status(status.RESPONSE_OK).json({
+      status: status.RESPONSE_OK,
+      msg,
+    });
   } catch (error) {
     next(error);
   }
