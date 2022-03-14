@@ -1,5 +1,7 @@
+/* eslint-disable no-param-reassign */
 const moviesRepository = require('../repositories/movies');
 const moviesCharacterRepository = require('../repositories/movieCharacter');
+const usersRepository = require('../repositories/users');
 const charactersRepository = require('../repositories/characters');
 const status = require('../constants/statusCodes');
 const messages = require('../constants/messages');
@@ -8,21 +10,23 @@ const fetch = require('./fetch');
 
 let movie;
 
-const getAll = async (title) => {
-  const movies = await moviesRepository.getAll(title);
+const getAll = async (req) => {
+  const movies = await moviesRepository.getAll(req.query.title);
 
   if (!movies) {
     const error = new Error(messages.NOT_FOUND_ERROR);
     error.status = status.NOT_FOUND_ERROR;
     throw error;
   }
-
+  movies.forEach((res) => {
+    res.dataValues.detail = `${req.protocol}://${req.get('host')}/movies/${res.id}`;
+    res.dataValues.updatedAt = undefined;
+  });
   return movies;
 };
 
 const getById = async (id) => {
-  const response = await fetch.getMovie(id);
-  movie = await moviesRepository.getByName(response.title);
+  movie = await moviesRepository.getById(id);
 
   if (movie) {
     return movie.dataValues;
@@ -58,6 +62,9 @@ const deleteAllData = async () => {
   await moviesCharacterRepository.removeData();
   await moviesRepository.removeData();
   await charactersRepository.removeData();
+  await usersRepository.removeData();
+
+  return 'All data removed';
 };
 
 module.exports = {
